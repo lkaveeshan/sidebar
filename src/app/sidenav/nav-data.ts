@@ -26,16 +26,6 @@ export const navbarData: INavbarData[] = [
       ]
     },
     {
-        routeLink: 'products',
-        icon: 'fa fa-box-open',
-        label: 'People'
-    },
-    {
-        routeLink: 'statistics',
-        icon: 'fa fa-chart-bar',
-        label: 'Teams'
-    },
-    {
         routeLink: 'coupens',
         icon: 'fa fa-home',
         label: 'Payroll',
@@ -43,12 +33,12 @@ export const navbarData: INavbarData[] = [
             {
                 routeLink: 'coupens/list',
                 icon: 'fa fa-copy',
-                label: 'List Coupens'
+                label: 'Run Payroll'
             },
             {
                 routeLink: 'coupens/create',
                 icon: 'fa fa-copy',
-                label: 'Create Coupens'
+                label: 'Payroll History'
             }
         ]
     },
