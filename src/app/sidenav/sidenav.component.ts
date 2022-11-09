@@ -43,6 +43,8 @@ export class SidenavComponent implements OnInit {
 } */
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { Component, Output, EventEmitter, OnInit, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
+import { fadeInOut, INavbarData } from './helper';
 import { navbarData } from './nav-data';
 
 interface SideNavToggle {
@@ -87,6 +89,7 @@ export class SidenavComponent implements OnInit {
   collapsed = false;
   screenWidth = 0;
   navData = navbarData;
+  multiple: boolean = false;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -96,6 +99,8 @@ export class SidenavComponent implements OnInit {
       this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
     }
   }
+
+  constructor(public router: Router) {}
 
   ngOnInit(): void {
       this.screenWidth = window.innerWidth;
@@ -109,5 +114,24 @@ export class SidenavComponent implements OnInit {
   closeSidenav(): void {
     this.collapsed = false;
     this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
+  }
+
+  handleClick(item: INavbarData): void {
+    this.shrinkItems(item);
+    item.expanded = !item.expanded
+  }
+
+  getActiveClass(data: INavbarData): string {
+    return this.router.url.includes(data.routeLink) ? 'active' : '';
+  }
+
+  shrinkItems(item: INavbarData): void {
+    if (!this.multiple) {
+      for(let modelItem of this.navData) {
+        if (item !== modelItem && modelItem.expanded) {
+          modelItem.expanded = false;
+        }
+      }
+    }
   }
 }
